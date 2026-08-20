@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>USA Roadtrip – Live für Familie & Freunde</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      background: #0f172a;
+      color: #e5e7eb;
+    }
+    header {
+      padding: 1.5rem;
+      text-align: center;
+      background: linear-gradient(135deg, #1d4ed8, #7c3aed);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+    header p {
+      margin: 0.3rem 0 0;
+      font-size: 0.95rem;
+    }
+    .route {
+      margin-top: 0.8rem;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+    main {
+      max-width: 900px;
+      margin: 1.5rem auto 3rem;
+      padding: 0 1rem;
+    }
+    .section-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+      border-left: 4px solid #3b82f6;
+      padding-left: 0.5rem;
+    }
+    .stop {
+      background: #020617;
+      border-radius: 0.75rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border: 1px solid #1f2937;
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+      gap: 0.8rem;
+    }
+    .stop-header {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .stop-meta {
+      font-size: 0.85rem;
+      color: #9ca3af;
+      margin-bottom: 0.5rem;
+    }
+    .stop-text {
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+    .stop img {
+      width: 100%;
+      border-radius: 0.6rem;
+      object-fit: cover;
+      max-height: 260px;
+    }
+    .map-link {
+      display: inline-block;
+      margin-top: 0.4rem;
+      font-size: 0.85rem;
+      color: #93c5fd;
+      text-decoration: none;
+    }
+    .map-link:hover {
+      text-decoration: underline;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #6b7280;
+      padding-bottom: 1.5rem;
+    }
+    @media (max-width: 720px) {
+      .stop {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>USA Roadtrip – Sabrina & Co.</h1>
+    <p>Hier seht ihr, wo wir gerade sind und was wir erleben 🚗🇺🇸</p>
+    <div class="route">
+      Aktuelle Route: San Francisco → Monterey → Big Sur → Santa Barbara → Los Angeles → San Diego
+      <br>
+      Letztes Update: 20. Oktober 2026
+    </div>
+  </header>
+
+  <main>
+    <div class="section-title">Aktueller Standort</div>
+    <div class="stop">
+      <div>
+        <div class="stop-header">San Diego, CA</div>
+        <div class="stop-meta">Tag 7 · Pazifik, Tacos & Sonnenuntergang</div>
+        <div class="stop-text">
+          Heute sind wir in San Diego angekommen. Mega entspannte Stimmung, Strand, Surfer
+          und super Essen. Abends waren wir am Sunset Cliffs – spektakuläre Aussicht!
+          <br>
+          <a class="map-link" href="https://maps.google.com/?q=Sunset+Cliffs+San+Diego" target="_blank">
+            Standort auf Google Maps ansehen
+          </a>
+        </div>
+      </div>
+      <div>
+        <!-- Bild liegt z.B. im Ordner "img" neben der HTML-Datei -->
+        <img src="img/sunset-cliffs.jpg" alt="Sunset Cliffs in San Diego">
+      </div>
+    </div>
+
+    <div class="section-title">Bisherige Stops</div>
+
+    <!-- Beispiel-Stopp 1 -->
+    <div class="stop">
+      <div>
+        <div class="stop-header">San Francisco, CA</div>
+        <div class="stop-meta">Tag 1–2 · Start unseres Roadtrips</div>
+        <div class="stop-text">
+          Ankunft in San Francisco, Spaziergang über die Golden Gate Bridge und
+          abends Fisherman's Wharf. Noch leicht im Jetlag, aber schon total im Roadtrip-Modus.
+          <br>
+          <a class="map-link" href="https://maps.google.com/?q=Golden+Gate+Bridge" target="_blank">
+            Golden Gate Bridge auf Google Maps
+          </a>
+        </div>
+      </div>
+      <div>
+        <img src="img/golden-gate.jpg" alt="Golden Gate Bridge">
+      </div>
+    </div>
+
+    <!-- Beispiel-Stopp 2 -->
+    <div class="stop">
+      <div>
+        <div class="stop-header">Monterey & Carmel, CA</div>
+        <div class="stop-meta">Tag 3 · Küstenstraße & Meer</div>
+        <div class="stop-text">
+          Fahrt über den 17-Mile Drive, Meer, Felsen und Seehunde. Carmel war unser Favorit:
+          kleine Häuser, ruhige Atmosphäre und ein super schöner Strand.
+          <br>
+          <a class="map-link" href="https://maps.google.com/?q=Carmel+Beach" target="_blank">
+            Carmel Beach auf Google Maps
+          </a>
+        </div>
+      </div>
+      <div>
+        <img src="img/carmel-beach.jpg" alt="Carmel Beach">
+      </div>
+    </div>
+
+    <!-- Hier kannst du einfach weitere Stops als Kopie der .stop-Blöcke einfügen -->
+
+  </main>
+
+  <footer>
+    Roadtrip 2026 · Seite manuell gepflegt von Sabrina 💙
+  </footer>
+</body>
+</html>
