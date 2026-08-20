@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>USA Roadtrip 2026 – Sabrina & Joachim</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+  body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f5f7fa; }
+  h1 { text-align:center; padding:1rem; }
+
+  .intro {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    font-size: 1.05rem;
+    line-height: 1.55rem;
+    color: #334155;
+    background: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    border-left: 6px solid #3b82f6;
+  }
+
+  #map {
+    height:350px;
+    margin:1rem;
+    border-radius:0.8rem;
+    overflow:hidden;
+  }
+
+  .day-card {
+    background:#ffffff;
+    margin:1rem;
+    padding:1.2rem;
+    border-radius:1rem;
+    border-left:6px solid #3b82f6;
+    box-shadow:0 3px 10px rgba(0,0,0,0.08);
+  }
+
+  .day-card h2 {
+    margin:0;
+    font-size:1.15rem;
+    font-weight:700;
+    color:#0f172a;
+  }
+
+  .day-card p {
+    margin:0.3rem 0 0;
+    font-size:0.9rem;
+    color:#334155;
+  }
+</style>
+</head>
+<body>
+
+<h1>USA Roadtrip 2026 – Sabrina & Joachim</h1>
+
+<p class="intro">
+  Willkommen auf unserer kleinen Roadtrip‑Seite!  
+  Im Oktober erfüllen wir uns einen großen Traum und reisen einmal quer durch den Westen der USA – von San Francisco über die Küste, durch die Nationalparks, bis hinunter nach San Diego.  
+  Damit ihr immer wisst, wo wir gerade sind und was wir erleben, halten wir euch hier auf dem Laufenden.  
+  Zu jedem Ort findet ihr Impressionen, Fotos und kleine Momente, die wir unterwegs festhalten.  
+  So seid ihr ein Stück weit mit dabei – egal, wo ihr gerade seid.  
+  Wir freuen uns, wenn ihr ab und zu vorbeischaut und die Reise mit uns begleitet. ❤️
+</p>
+
+<div id="map"></div>
+<div id="days"></div>
+
+<script>
+  const days = [
+    { date: "2026-10-10", title: "San Francisco" },
+    { date: "2026-10-11", title: "Marina / Fleet Week" },
+    { date: "2026-10-12", title: "Alcatraz" }
+  ];
+
+  const locations = {
+    "2026-10-10": [37.7749, -122.4194],
+    "2026-10-11": [37.806, -122.432],
+    "2026-10-12": [37.8267, -122.423]
+  };
+
+  const map = L.map('map').setView([37.7749, -122.4194], 10);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '&copy; OpenStreetMap'
+  }).addTo(map);
+
+  const markers = [];
+  const routeCoords = [];
+
+  days.forEach(day => {
+    const card = document.createElement("div");
+    card.className = "day-card";
+    card.innerHTML = `<h2>${day.title}</h2><p>${day.date}</p>`;
+    document.getElementById("days").appendChild(card);
+
+    const loc = locations[day.date];
+    const marker = L.marker(loc).addTo(map);
+    marker.bindPopup(`${day.title}<br>${day.date}`);
+
+    markers.push(marker);
+    routeCoords.push(loc);
+  });
+
+  L.polyline(routeCoords, { color: 'blue', weight: 4 }).addTo(map);
+
+  const group = L.featureGroup(markers);
+  map.fitBounds(group.getBounds());
+</script>
+
+</body>
+</html>
