@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>USA Roadtrip 2026 – Sabrina & Joachim</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+  body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f5f7fa; }
+  h1 { text-align:center; padding:1rem; }
+
+  /* ⭐ Einleitungstext */
+  .intro {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    font-size: 1.05rem;
+    line-height: 1.55rem;
+    color: #334155;
+    background: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    border-left: 6px solid #3b82f6;
+  }
+
+  #map {
+    height:350px;
+    margin:1rem;
+    border-radius:0.8rem;
+    overflow:hidden;
+  }
+
+  /* ⭐ Travel-Blog Style Tageskarten */
+  .day-card {
+    background:#ffffff;
+    margin:1rem;
+    padding:1.2rem;
+    border-radius:1rem;
+    border-left:6px solid #3b82f6;
+    box-shadow:0 3px 10px rgba(0,0,0,0.08);
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+    cursor:pointer;
+  }
+
+  .day-card:hover {
+    transform:translateY(-3px);
+    box-shadow:0 6px 16px rgba(0,0,0,0.12);
+  }
+
+  .day-card h2 {
+    margin:0;
+    font-size:1.15rem;
+    font-weight:700;
+    color:#0f172a;
+  }
+
+  .day-card p {
+    margin:0.3rem 0 0;
+    font-size:0.9rem;
+    color:#334155;
+  }
+
+  .preview-container {
+    display:flex;
+    gap:6px;
+    margin-top:10px;
+  }
+
+  .preview-container img {
+    width:30%;
+    height:60px;
+    object-fit:cover;
+    border-radius:6px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.15);
+  }
+
+  .day-card.current {
+    border-left-color:#16a34a;
+    box-shadow:0 0 12px rgba(22,163,74,0.4);
+    position:relative;
+  }
+
+  .day-card.current::before {
+    content:"Heute";
+    position:absolute;
+    top:-10px;
+    right:12px;
+    background:#16a34a;
+    color:white;
+    padding:3px 8px;
+    border-radius:6px;
+    font-size:0.75rem;
+  }
+</style>
+</head>
+<body>
+
+<h1>USA Roadtrip 2026 – Sabrina & Joachim</h1>
+
+<!-- ⭐ Einleitungstext -->
+<p class="intro">
+  Willkommen auf unserer kleinen Roadtrip‑Seite!  
+  Im Oktober erfüllen wir uns einen großen Traum und reisen einmal quer durch den Westen der USA – von San Francisco über die Küste, durch die Nationalparks, bis hinunter nach San Diego.  
+  Damit ihr immer wisst, wo wir gerade sind und was wir erleben, halten wir euch hier auf dem Laufenden.  
+  Zu jedem Ort findet ihr Impressionen, Fotos und kleine Momente, die wir unterwegs festhalten.  
+  So seid ihr ein Stück weit mit dabei – egal, wo ihr gerade seid.  
+  Wir freuen uns, wenn ihr ab und zu vorbeischaut und die Reise mit uns begleitet. ❤️
+</p>
+
+<div id="map"></div>
+<div id="days"></div>
+
+<script>
+  const today = new Date().toISOString().split("T")[0];
+
+  const days = [
+    { date: "2026-10-10", title: "San Francisco" },
+    { date: "2026-10-11", title: "Marina / Fleet Week" },
+    { date: "2026-10-12", title: "Alcatraz" },
+    { date: "2026-10-13", title: "Monterey" },
+    { date: "2026-10-14", title: "Pismo Beach" },
+    { date: "2026-10-15", title: "Los Angeles" },
+    { date: "2026-10-16", title: "Los Angeles" },
+    { date: "2026-10-17", title: "Las Vegas" },
+    { date: "2026-10-18", title: "Las Vegas" },
+    { date: "2026-10-19", title: "Zion National Park" },
+    { date: "2026-10-20", title: "Zion National Park" },
+    { date: "2026-10-21", title: "Bryce Canyon" },
+    { date: "2026-10-22", title: "Page / Antelope Canyon" },
+    { date: "2026-10-23", title: "Grand Canyon" },
+    { date: "2026-10-24", title: "Sedona" },
+    { date: "2026-10-25", title: "Prescott" },
+    { date: "2026-10-26", title: "Joshua Tree" },
+    { date: "2026-10-27", title: "Joshua Tree" },
+    { date: "2026-10-28", title: "San Diego" },
+    { date: "2026-10-29", title: "San Diego Harbour" },
+    { date: "2026-10-30", title: "San Diego Airport" }
+  ];
+
+  const locations = {
+    "2026-10-10": [37.7749, -122.4194],
+    "2026-10-11": [37.806, -122.432],
+    "2026-10-12": [37.8267, -122.423],
+    "2026-10-13": [36.617, -121.916],
+    "2026-10-14": [35.142, -120.641],
+    "2026-10-15": [34.0522, -118.2437],
+    "2026-10-16": [34.0522, -118.2437],
+    "2026-10-17": [36.1699, -115.1398],
+    "2026-10-18": [36.1699, -115.1398],
+    "2026-10-19": [37.2982, -113.0263],
+    "2026-10-20": [37.2982, -113.0263],
+    "2026-10-21": [37.5930, -112.1871],
+    "2026-10-22": [36.9147, -111.4558],
+    "2026-10-23": [36.0544, -112.1401],
+    "2026-10-24": [34.8697, -111.7609],
+    "2026-10-25": [34.5400, -112.4685],
+    "2026-10-26": [33.8734, -115.9010],
+    "2026-10-27": [33.8734, -115.9010],
+    "2026-10-28": [32.7970, -117.2580],
+    "2026-10-29": [32.7090, -117.1628],
+    "2026-10-30": [32.7338, -117.1933]
+  };
+
+  const map = L.map('map').setView([36.5, -115], 5);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '&copy; OpenStreetMap'
+  }).addTo(map);
+
+  const carIcon = L.icon({
+    iconUrl: 'auto-sabrina-joachim.png',
+    iconSize: [50, 50],
+    iconAnchor: [25, 25]
+  });
+
+  const markers = [];
+  const routeCoords = [];
+
+  days.forEach((day, index) => {
+    const card = document.createElement("div");
+    card.className = "day-card";
+    if (day.date === today) card.classList.add("current");
+
+    /* ⭐ Travel-Blog Text + Impressionen */
+    card.innerHTML = `
+      <h2>${day.title}</h2>
+      <p>${day.date}</p>
+      <p><strong>Impressionen aus ${day.title}</strong></p>
+      <div class="preview-container" id="preview-${day.date}"></div>
+    `;
+
+    /* ⭐ Karte klickbar → Fotoseite */
+    card.onclick = () => {
+      window.location.href = "fotos/" + day.date + "/index.html";
+    };
+
+    document.getElementById("days").appendChild(card);
+
+    /* ⭐ Foto-Preview laden */
+    for (let i = 1; i <= 3; i++) {
+      const img = document.createElement("img");
+      img.src = `fotos/${day.date}/${i}.jpg`;
+      img.onerror = () => img.style.display = "none";
+      document.getElementById(`preview-${day.date}`).appendChild(img);
+    }
+
+    const loc = locations[day.date];
+    if (!loc) return;
+
+    let marker;
+
+    /* ⭐ Auto-Icon immer bei Tag 1 */
+    if (index === 0) {
+      marker = L.marker(loc, { icon: carIcon }).addTo(map);
+
+    } else if (day.date < today) {
+      /* ⭐ Vergangene Tage → grüner Haken */
+      const doneIcon = L.divIcon({
+        html: `<div style="
+          background:#16a34a;color:white;padding:6px 10px;border-radius:8px;
+          font-size:13px;font-weight:bold;border:2px solid white;white-space:nowrap;
+        ">✔ ${day.title}<br>${day.date}</div>`,
+        className: "",
+        iconSize: null
+      });
+      marker = L.marker(loc, { icon: doneIcon }).addTo(map);
+
+    } else {
+      /* ⭐ Zukunft → blauer Marker */
+      const labelIcon = L.divIcon({
+        html: `<div style="
+          background:#2563eb;color:white;padding:6px 10px;border-radius:8px;
+          font-size:13px;font-weight:bold;border:2px solid white;white-space:nowrap;
+        ">${day.title}<br>${day.date}</div>`,
+        className: "",
+        iconSize: null
+      });
+      marker = L.marker(loc, { icon: labelIcon }).addTo(map);
+    }
+
+    marker.bindPopup(`${day.title}<br>${day.date}`);
+    markers.push(marker);
+    routeCoords.push(loc);
+  });
+
+  L.polyline(routeCoords, { color: 'blue', weight: 4 }).addTo(map);
+
+  const group = L.featureGroup(markers);
+  map.fitBounds(group.getBounds());
+</script>
+
+</body>
+</html>
