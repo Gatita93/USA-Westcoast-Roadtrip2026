@@ -53,18 +53,6 @@
     font-size:0.9rem;
     color:#334155;
   }
-
-  .preview-container {
-    display:flex;
-    gap:0.5rem;
-    margin-top:0.8rem;
-  }
-
-  .preview-container img {
-    width:30%;
-    border-radius:8px;
-    box-shadow:0 2px 6px rgba(0,0,0,0.15);
-  }
 </style>
 </head>
 <body>
@@ -74,7 +62,6 @@
 <p class="intro">
   Willkommen auf unserer USA Roadtrip‑Seite!  
   Damit ihr immer wisst, wo wir gerade sind und was wir erleben, halten wir euch hier auf dem Laufenden.  
-  Zu jedem Ort findet ihr Impressionen und Fotos, die wir unterwegs festhalten.  
   So seid ihr ein Stück weit mit dabei. ❤️
 </p>
 
@@ -141,36 +128,16 @@
   const routeCoords = [];
 
   days.forEach(day => {
-    // Tageskarte
     const card = document.createElement("div");
     card.className = "day-card";
-
-    // Klick → Fotoseite
-    card.onclick = () => {
-      window.location.href = `fotos/template.html?date=${day.date}&title=${encodeURIComponent(day.title)}`;
-    };
 
     card.innerHTML = `
       <h2>${day.title}</h2>
       <p>${day.date}</p>
-      <p><strong>Impressionen aus ${day.title}</strong></p>
     `;
 
-    // Foto-Preview
-    const preview = document.createElement("div");
-    preview.className = "preview-container";
-
-    for (let i = 1; i <= 3; i++) {
-      const img = document.createElement("img");
-      img.src = `fotos/${day.date}/${i}.jpg`;
-      img.onerror = () => img.remove();
-      preview.appendChild(img);
-    }
-
-    card.appendChild(preview);
     document.getElementById("days").appendChild(card);
 
-    // Marker + Route
     const loc = locations[day.date];
     const marker = L.marker(loc).addTo(map);
     marker.bindPopup(`${day.title}<br>${day.date}`);
