@@ -133,20 +133,34 @@ days.forEach(day => {
     const card = document.createElement("div");
     card.className = "day-card";
 
-    // ⭐ Klick auf Tageskarte → Fotoseite öffnen
+    // Klick auf Tageskarte → Fotoseite öffnen
     card.onclick = () => {
       window.location.href = `fotos/template.html?date=${day.date}&title=${encodeURIComponent(day.title)}`;
     };
 
-    // ⭐ Inhalt der Kachel
+    // Inhalt der Kachel
     card.innerHTML = `
       <h2>${day.title}</h2>
       <p>${day.date}</p>
       <p><strong>Impressionen aus ${day.title}</strong></p>
     `;
 
+    // FOTO-PREVIEW (zeigt die ersten 3 Fotos)
+    const preview = document.createElement("div");
+    preview.className = "preview-container";
+
+    for (let i = 1; i <= 3; i++) {
+      const img = document.createElement("img");
+      img.src = `fotos/${day.date}/${i}.jpg`;
+      img.onerror = () => img.remove(); // entfernt fehlende Bilder
+      preview.appendChild(img);
+    }
+
+    card.appendChild(preview);
+
     document.getElementById("days").appendChild(card);
 });
+
 
 
     const loc = locations[day.date];
