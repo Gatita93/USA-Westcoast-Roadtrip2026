@@ -60,12 +60,10 @@
 <h1>USA Roadtrip 2026 – Sabrina & Joachim</h1>
 
 <p class="intro">
-  Willkommen auf unserer kleinen Roadtrip‑Seite!  
-  Im Oktober erfüllen wir uns einen großen Traum und reisen einmal quer durch den Westen der USA – von San Francisco über die Küste, durch die Nationalparks, bis hinunter nach San Diego.  
+  Willkommen auf unserer USA Roadtrip‑Seite!  
   Damit ihr immer wisst, wo wir gerade sind und was wir erleben, halten wir euch hier auf dem Laufenden.  
-  Zu jedem Ort findet ihr Impressionen, Fotos und kleine Momente, die wir unterwegs festhalten.  
-  So seid ihr ein Stück weit mit dabei – egal, wo ihr gerade seid.  
-  Wir freuen uns, wenn ihr ab und zu vorbeischaut und die Reise mit uns begleitet. ❤️
+  Zu jedem Ort findet ihr Impressionen und Fotos, die wir unterwegs festhalten.  
+  So seid ihr ein Stück weit mit dabei. ❤️
 </p>
 
 <div id="map"></div>
@@ -73,16 +71,53 @@
 
 <script>
   const days = [
-    { date: "2026-10-10", title: "San Francisco" },
-    { date: "2026-10-11", title: "Marina / Fleet Week" },
-    { date: "2026-10-12", title: "Alcatraz" }
-  ];
+  { date: "2026-10-10", title: "San Francisco" },
+  { date: "2026-10-11", title: "Marina / Fleet Week" },
+  { date: "2026-10-12", title: "Alcatraz" },
+  { date: "2026-10-13", title: "Monterey" },
+  { date: "2026-10-14", title: "Pismo Beach" },
+  { date: "2026-10-15", title: "Los Angeles" },
+  { date: "2026-10-16", title: "Los Angeles" },
+  { date: "2026-10-17", title: "Las Vegas" },
+  { date: "2026-10-18", title: "Las Vegas" },
+  { date: "2026-10-19", title: "Zion National Park" },
+  { date: "2026-10-20", title: "Zion National Park" },
+  { date: "2026-10-21", title: "Bryce Canyon" },
+  { date: "2026-10-22", title: "Page / Antelope Canyon" },
+  { date: "2026-10-23", title: "Grand Canyon" },
+  { date: "2026-10-24", title: "Sedona" },
+  { date: "2026-10-25", title: "Prescott" },
+  { date: "2026-10-26", title: "Joshua Tree" },
+  { date: "2026-10-27", title: "Joshua Tree" },
+  { date: "2026-10-28", title: "San Diego" },
+  { date: "2026-10-29", title: "San Diego Harbour" },
+  { date: "2026-10-30", title: "San Diego Airport" }
+];
 
-  const locations = {
-    "2026-10-10": [37.7749, -122.4194],
-    "2026-10-11": [37.806, -122.432],
-    "2026-10-12": [37.8267, -122.423]
-  };
+const locations = {
+  "2026-10-10": [37.7749, -122.4194],
+  "2026-10-11": [37.806, -122.432],
+  "2026-10-12": [37.8267, -122.423],
+  "2026-10-13": [36.617, -121.916],
+  "2026-10-14": [35.142, -120.641],
+  "2026-10-15": [34.0522, -118.2437],
+  "2026-10-16": [34.0522, -118.2437],
+  "2026-10-17": [36.1699, -115.1398],
+  "2026-10-18": [36.1699, -115.1398],
+  "2026-10-19": [37.2982, -113.0263],
+  "2026-10-20": [37.2982, -113.0263],
+  "2026-10-21": [37.5930, -112.1871],
+  "2026-10-22": [36.9147, -111.4558],
+  "2026-10-23": [36.0544, -112.1401],
+  "2026-10-24": [34.8697, -111.7609],
+  "2026-10-25": [34.5400, -112.4685],
+  "2026-10-26": [33.8734, -115.9010],
+  "2026-10-27": [33.8734, -115.9010],
+  "2026-10-28": [32.7970, -117.2580],
+  "2026-10-29": [32.7090, -117.1628],
+  "2026-10-30": [32.7338, -117.1933]
+};
+
 
   const map = L.map('map').setView([37.7749, -122.4194], 10);
 
