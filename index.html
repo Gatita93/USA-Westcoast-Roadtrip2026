@@ -129,11 +129,25 @@ const locations = {
   const markers = [];
   const routeCoords = [];
 
-  days.forEach(day => {
+days.forEach(day => {
     const card = document.createElement("div");
     card.className = "day-card";
-    card.innerHTML = `<h2>${day.title}</h2><p>${day.date}</p>`;
+
+    // ⭐ Klick auf Tageskarte → Fotoseite öffnen
+    card.onclick = () => {
+      window.location.href = `fotos/template.html?date=${day.date}&title=${encodeURIComponent(day.title)}`;
+    };
+
+    // ⭐ Inhalt der Kachel
+    card.innerHTML = `
+      <h2>${day.title}</h2>
+      <p>${day.date}</p>
+      <p><strong>Impressionen aus ${day.title}</strong></p>
+    `;
+
     document.getElementById("days").appendChild(card);
+});
+
 
     const loc = locations[day.date];
     const marker = L.marker(loc).addTo(map);
