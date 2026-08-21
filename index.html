@@ -57,8 +57,8 @@
   const markers = [];
   const routeCoords = [];
 
-  // ⭐ Tageskarten + Foto-Preview + Klick
   days.forEach(day => {
+    // Tageskarte
     const card = document.createElement("div");
     card.className = "day-card";
 
@@ -72,6 +72,7 @@
       <p><strong>Impressionen aus ${day.title}</strong></p>
     `;
 
+    // Foto-Preview
     const preview = document.createElement("div");
     preview.className = "preview-container";
 
@@ -85,7 +86,7 @@
     card.appendChild(preview);
     document.getElementById("days").appendChild(card);
 
-    // ⭐ Marker + Route (gehört IN die Schleife!)
+    // Marker + Route
     const loc = locations[day.date];
     const marker = L.marker(loc).addTo(map);
     marker.bindPopup(`${day.title}<br>${day.date}`);
@@ -99,3 +100,4 @@
   const group = L.featureGroup(markers);
   map.fitBounds(group.getBounds());
 </script>
+
