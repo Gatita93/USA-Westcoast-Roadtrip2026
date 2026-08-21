@@ -1,3 +1,86 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>USA Roadtrip 2026 – Sabrina & Joachim</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<style>
+  body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f5f7fa; }
+  h1 { text-align:center; padding:1rem; }
+
+  .intro {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    font-size: 1.05rem;
+    line-height: 1.55rem;
+    color: #334155;
+    background: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    border-left: 6px solid #3b82f6;
+  }
+
+  #map {
+    height:350px;
+    margin:1rem;
+    border-radius:0.8rem;
+    overflow:hidden;
+  }
+
+  .day-card {
+    background:#ffffff;
+    margin:1rem;
+    padding:1.2rem;
+    border-radius:1rem;
+    border-left:6px solid #3b82f6;
+    box-shadow:0 3px 10px rgba(0,0,0,0.08);
+  }
+
+  .day-card h2 {
+    margin:0;
+    font-size:1.15rem;
+    font-weight:700;
+    color:#0f172a;
+  }
+
+  .day-card p {
+    margin:0.3rem 0 0;
+    font-size:0.9rem;
+    color:#334155;
+  }
+
+  .preview-container {
+    display:flex;
+    gap:0.5rem;
+    margin-top:0.8rem;
+  }
+
+  .preview-container img {
+    width:30%;
+    border-radius:8px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.15);
+  }
+</style>
+</head>
+<body>
+
+<h1>USA Roadtrip 2026 – Sabrina & Joachim</h1>
+
+<p class="intro">
+  Willkommen auf unserer USA Roadtrip‑Seite!  
+  Damit ihr immer wisst, wo wir gerade sind und was wir erleben, halten wir euch hier auf dem Laufenden.  
+  Zu jedem Ort findet ihr Impressionen und Fotos, die wir unterwegs festhalten.  
+  So seid ihr ein Stück weit mit dabei. ❤️
+</p>
+
+<div id="map"></div>
+<div id="days"></div>
+
 <script>
   const days = [
     { date: "2026-10-10", title: "San Francisco - Ankunft 14:30" },
@@ -101,3 +184,6 @@
   const group = L.featureGroup(markers);
   map.fitBounds(group.getBounds());
 </script>
+
+</body>
+</html>
