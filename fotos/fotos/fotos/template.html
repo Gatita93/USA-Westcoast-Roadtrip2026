@@ -1,1 +1,59 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fotos</title>
+
+<style>
+  body { font-family: Arial, sans-serif; margin:0; padding:1rem; background:#f5f7fa; }
+  h1 { text-align:center; margin-bottom:1rem; }
+  .gallery img {
+    width:100%;
+    max-width:600px;
+    margin:0 auto 1rem;
+    display:block;
+    border-radius:10px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.15);
+  }
+  .back {
+    display:block;
+    text-align:center;
+    margin-top:2rem;
+    font-size:1rem;
+    color:#2563eb;
+    text-decoration:none;
+  }
+</style>
+</head>
+<body>
+
+<h1 id="title"></h1>
+
+<div class="gallery" id="gallery"></div>
+
+<a class="back" href="../index.html">← Zurück zur Übersicht</a>
+
+<script>
+  // URL Parameter auslesen
+  const params = new URLSearchParams(window.location.search);
+  const date = params.get("date");
+  const title = params.get("title");
+
+  // Titel setzen
+  document.getElementById("title").innerText = `${title} – ${date}`;
+
+  // Fotos laden
+  const gallery = document.getElementById("gallery");
+
+  for (let i = 1; i <= 50; i++) {
+    const img = document.createElement("img");
+    img.src = `${date}/${i}.jpg`;
+    img.onerror = () => img.remove(); // entfernt nicht vorhandene Bilder
+    gallery.appendChild(img);
+  }
+</script>
+
+</body>
+</html>
 
