@@ -62,6 +62,7 @@
     const card = document.createElement("div");
     card.className = "day-card";
 
+    // Klick → Fotoseite
     card.onclick = () => {
       window.location.href = `fotos/template.html?date=${day.date}&title=${encodeURIComponent(day.title)}`;
     };
